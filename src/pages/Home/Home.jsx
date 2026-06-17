@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, useReducedMotion } from 'framer-motion';
 import { FiArrowRight } from 'react-icons/fi';
@@ -68,7 +67,7 @@ export default function Home() {
                 <Link to="/book" className="btn-primary">
                   Book a Clarity Call
                 </Link>
-                <Link to="/quiz?type=pcos" className="btn-ghost">
+                <Link to="/services?type=pcos" className="btn-ghost">
                   Take Free Quiz <FiArrowRight className="btn-icon" />
                 </Link>
               </motion.div>
@@ -233,14 +232,14 @@ export default function Home() {
                 Take our 2-minute diagnostic questionnaire to identify subtle physical or mental stressors. Receive an immediate score and targeted suggestions from Dr. Helee Patel.
               </p>
               <div className="quiz-cta-options">
-                <Link to="/quiz?type=pcos" className="quiz-opt-btn glass-card">
+                <Link to="/services?type=pcos" className="quiz-opt-btn glass-card">
                   <span className="quiz-opt-icon"><GiLotus style={{ color: '#9B9879', fontSize: '20px' }} /></span>
                   <div className="quiz-opt-text">
                     <h4>PCOS/PCOD Health Check</h4>
                     <p>For Women's Cycle & Hormonal Health</p>
                   </div>
                 </Link>
-                <Link to="/quiz?type=mental" className="quiz-opt-btn glass-card">
+                <Link to="/services?type=mental" className="quiz-opt-btn glass-card">
                   <span className="quiz-opt-icon"><FaBrain style={{ color: '#9B9879', fontSize: '20px' }} /></span>
                   <div className="quiz-opt-text">
                     <h4>Mental Wellness Check</h4>

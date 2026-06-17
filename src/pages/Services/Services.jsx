@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { FiArrowRight, FiArrowLeft } from 'react-icons/fi';
+import { useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { pcosQuiz, mentalQuiz, quizReports } from '../../data/quizData';
 import './Services.css';
 
@@ -8,9 +7,9 @@ const letters = ['A', 'B', 'C', 'D'];
 
 export default function Services() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeQuiz = searchParams.get('type');
   const isMobile = window.innerWidth <= 768;
-  // Single State for Active Quiz (null, 'pcos', or 'mental')
-  const [activeQuiz, setActiveQuiz] = useState(null);
 
   // States for Inline PCOS Quiz
   const [pcosIdx, setPcosIdx] = useState(0);
@@ -34,13 +33,7 @@ export default function Services() {
     return 'high';
   };
 
-  // Smooth scroll handler to Section C
-  const scrollToSectionC = () => {
-    const sectionC = document.getElementById('consultation-section');
-    if (sectionC) {
-      sectionC.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+
 
   // PCOS Inline Quiz Handlers
   const handlePcosSelect = (oIdx, score) => {
@@ -81,7 +74,7 @@ export default function Services() {
     setPcosSelectedOpt(null);
     setPcosFinished(false);
     setPcosScore(0);
-    setActiveQuiz(null);
+    setSearchParams({});
   };
 
   // Mental Inline Quiz Handlers
@@ -123,7 +116,7 @@ export default function Services() {
     setMentalSelectedOpt(null);
     setMentalFinished(false);
     setMentalScore(0);
-    setActiveQuiz(null);
+    setSearchParams({});
   };
 
   // Get current reports based on type & score
@@ -155,7 +148,9 @@ export default function Services() {
                 <span className="quizCardLabel">SECTION A</span>
                 <h2 className="quizCardTitle">PCOS / PCOD Health Check</h2>
                 <p className="quizCardDesc">Answer 8 quick questions about your symptoms and get your personalised health score.</p>
-                <button className="quizStartBtn" onClick={() => setActiveQuiz('pcos')}>
+                <button className="quizStartBtn" onClick={() => {
+                  setSearchParams({ type: 'pcos' });
+                }}>
                   Start the Quiz →
                 </button>
               </div>
@@ -165,7 +160,9 @@ export default function Services() {
                 <span className="quizCardLabel">SECTION B</span>
                 <h2 className="quizCardTitle">Mental Wellness Check</h2>
                 <p className="quizCardDesc">A quick self-assessment to understand your current mental and emotional health.</p>
-                <button className="quizStartBtn" onClick={() => setActiveQuiz('mental')}>
+                <button className="quizStartBtn" onClick={() => {
+                  setSearchParams({ type: 'mental' });
+                }}>
                   Start the Quiz →
                 </button>
               </div>
@@ -178,7 +175,9 @@ export default function Services() {
             <div className="quizFullWidth">
               <button
                 className="backToQuizBtn"
-                onClick={() => setActiveQuiz(null)}
+                onClick={() => {
+                  setSearchParams({});
+                }}
               >
                 ← Back to Services
               </button>

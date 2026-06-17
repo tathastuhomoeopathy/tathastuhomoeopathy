@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiInstagram, FiMessageCircle } from 'react-icons/fi';
 import { GiLotus } from 'react-icons/gi';
@@ -48,9 +47,8 @@ export default function Footer() {
           <div className="footer-col">
             <h4 className="footer-title">Self-Care Quiz</h4>
             <ul className="footer-links">
-              <li><Link to="/quiz?type=pcos">PCOS/PCOD Assessment</Link></li>
-              <li><Link to="/quiz?type=mental">Mental Wellness Check</Link></li>
-              <li><Link to="/testimonials">Patient Success Stories</Link></li>
+              <li><Link to="/services?type=pcos">PCOS/PCOD Assessment</Link></li>
+              <li><Link to="/services?type=mental">Mental Wellness Check</Link></li>
               <li><Link to="/book">Consultation Pricing</Link></li>
             </ul>
           </div>
@@ -74,7 +72,7 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <p>&copy; {currentYear} Dr. Healy Homeopathy. All rights reserved.</p>
+        <p>&copy; {currentYear} Dr. Helee Homeopathy. All rights reserved.</p>
         <p className="footer-credit">Handcrafted with care for natural healing</p>
       </div>
     </footer>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -11,7 +10,6 @@ import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import Home from './pages/Home/Home';
 import About from './pages/About/About';
 import Services from './pages/Services/Services';
-import Quiz from './pages/Quiz/Quiz';
 import Results from './pages/Results/Results';
 import Testimonials from './pages/Testimonials/Testimonials';
 import Gallery from './pages/Gallery/Gallery';
@@ -51,7 +49,6 @@ export default function App() {
             <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
             <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
             <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
-            <Route path="/quiz" element={<PageWrapper><Quiz /></PageWrapper>} />
             <Route path="/results" element={<PageWrapper><Results /></PageWrapper>} />
             <Route path="/testimonials" element={<PageWrapper><Testimonials /></PageWrapper>} />
             <Route path="/gallery" element={<PageWrapper><Gallery /></PageWrapper>} />
