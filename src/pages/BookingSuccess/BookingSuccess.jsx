@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { BsCheckCircle } from 'react-icons/bs'
 import styles from './BookingSuccess.module.css'
 
 export default function BookingSuccess() {
@@ -12,15 +13,15 @@ export default function BookingSuccess() {
     if (!paymentId) navigate('/')
   }, [paymentId, navigate])
 
-
-
   return (
     <div className={styles.successPage}>
 
       {/* Top confirmation */}
-      <section className={styles.successHero}>
+      <section className={`${styles.successHero} gradient-bg`}>
         <div className={styles.successInner}>
-          <div className={styles.checkCircle}>✓</div>
+          <div className={styles.checkCircle}>
+            <BsCheckCircle style={{ color: '#EDE7DB', fontSize: '32px' }} />
+          </div>
           <h1 className={styles.successTitle}>Payment Confirmed!</h1>
           <p className={styles.successSubtitle}>
             Thank you {name}! Your payment was successful. Now please book your preferred consultation slot below.

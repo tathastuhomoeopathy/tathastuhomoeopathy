@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { GiLotus, GiDiploma, GiHealthNormal } from 'react-icons/gi';
+import { FaBrain } from 'react-icons/fa';
 import ScrollReveal from '../../components/ScrollReveal/ScrollReveal';
 import './About.css';
 
@@ -40,7 +42,7 @@ export default function About() {
               <div className="story-box-wrapper">
                 <div className="story-img-box">
                   <img
-                    src="https://res.cloudinary.com/dglf2h0t1/image/upload/v1781118110/IMG_2064_qpmzlu.jpg"
+                    src="https://res.cloudinary.com/dglf2h0t1/image/upload/f_auto,q_auto/v1781118110/IMG_2064_qpmzlu.jpg"
                     alt="Dr. Helee Patel"
                     style={{
                       width: '100%',
@@ -73,7 +75,7 @@ export default function About() {
           <div className="credentials-grid">
             <ScrollReveal y={20} delay={0.1}>
               <div className="cred-card default-card glass-card">
-                <span className="cred-icon">🎓</span>
+                <span className="cred-icon"><GiDiploma style={{ color: '#9B9879', fontSize: '32px' }} /></span>
                 <h4>BHMS Degree</h4>
                 <p>Bachelor of Homeopathic Medicine and Surgery, representing standard, clinical training in modern pathology, diagnostics, and homeopathic therapeutics.</p>
               </div>
@@ -81,7 +83,7 @@ export default function About() {
 
             <ScrollReveal y={20} delay={0.2}>
               <div className="cred-card default-card glass-card">
-                <span className="cred-icon">🎗️</span>
+                <span className="cred-icon"><GiHealthNormal style={{ color: '#9B9879', fontSize: '32px' }} /></span>
                 <h4>Endocrine & PCOS Specialist</h4>
                 <p>Advanced clinical certification in reproductive endocrinology, specializing in natural management protocols for insulin resistance, hirsutism, and amenorrhea.</p>
               </div>
@@ -89,7 +91,7 @@ export default function About() {
 
             <ScrollReveal y={20} delay={0.3}>
               <div className="cred-card default-card glass-card">
-                <span className="cred-icon">🧠</span>
+                <span className="cred-icon"><FaBrain style={{ color: '#9B9879', fontSize: '32px' }} /></span>
                 <h4>Neuropsychology Focus</h4>
                 <p>In-depth specialization in behavioral homeopathy and neuro-linguistic coaching to resolve psychosomatic anxiety, chronic insomnia, and stress disorders.</p>
               </div>
@@ -102,7 +104,7 @@ export default function About() {
       <section className="section section-warm">
         <div className="section-container">
           <div className="philosophy-card default-card glass-card">
-            <div className="philosophy-accent">🌿</div>
+            <div className="philosophy-accent"><GiLotus style={{ color: '#9B9879', fontSize: '4rem' }} /></div>
             <ScrollReveal y={30}>
               <span className="eyebrow">Our Philosophy</span>
               <h2 className="section-title text-wine">Why Classical Homeopathy?</h2>
@@ -133,7 +135,7 @@ export default function About() {
             <ScrollReveal y={20} delay={0.1}>
               <div className="gallery-placeholder">
                 <img
-                  src="https://res.cloudinary.com/dglf2h0t1/image/upload/v1781118110/IMG_2064_qpmzlu.jpg"
+                  src="https://res.cloudinary.com/dglf2h0t1/image/upload/f_auto,q_auto/v1781118110/IMG_2064_qpmzlu.jpg"
                   alt="Dr. Helee Patel"
                   style={{
                     width: '100%',
@@ -149,7 +151,7 @@ export default function About() {
             <ScrollReveal y={20} delay={0.2}>
               <div className="gallery-placeholder">
                 <img
-                  src="https://res.cloudinary.com/dglf2h0t1/image/upload/v1781118110/IMG_2064_qpmzlu.jpg"
+                  src="https://res.cloudinary.com/dglf2h0t1/image/upload/f_auto,q_auto/v1781118110/IMG_2064_qpmzlu.jpg"
                   alt="Dr. Helee Patel"
                   style={{
                     width: '100%',
@@ -165,7 +167,7 @@ export default function About() {
             <ScrollReveal y={20} delay={0.3}>
               <div className="gallery-placeholder">
                 <img
-                  src="https://res.cloudinary.com/dglf2h0t1/image/upload/v1781118110/IMG_2064_qpmzlu.jpg"
+                  src="https://res.cloudinary.com/dglf2h0t1/image/upload/f_auto,q_auto/v1781118110/IMG_2064_qpmzlu.jpg"
                   alt="Dr. Helee Patel"
                   style={{
                     width: '100%',
@@ -181,7 +183,7 @@ export default function About() {
             <ScrollReveal y={20} delay={0.4}>
               <div className="gallery-placeholder">
                 <img
-                  src="https://res.cloudinary.com/dglf2h0t1/image/upload/v1781118110/IMG_2064_qpmzlu.jpg"
+                  src="https://res.cloudinary.com/dglf2h0t1/image/upload/f_auto,q_auto/v1781118110/IMG_2064_qpmzlu.jpg"
                   alt="Dr. Helee Patel"
                   style={{
                     width: '100%',
@@ -199,7 +201,7 @@ export default function About() {
       </section>
 
       {/* CTA SECTION (DARK gradient) */}
-      <section className="section section-dark about-cta">
+      <section className="section section-dark about-cta gradient-bg">
         <div className="noise-overlay"></div>
         <div className="orb-container">
           <div className="orb orb-1"></div>

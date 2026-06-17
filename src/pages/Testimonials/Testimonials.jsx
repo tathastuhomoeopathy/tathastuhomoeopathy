@@ -18,7 +18,7 @@ export default function Testimonials() {
     <div className="testimonials-page">
       
       {/* HERO SECTION */}
-      <section className="testimonials-hero">
+      <section className="testimonials-hero gradient-bg">
         <div className="noise-overlay"></div>
         <div className="orb-container">
           <div className="orb orb-1"></div>
@@ -87,7 +87,7 @@ export default function Testimonials() {
       </section>
 
       {/* BOTTOM CTA */}
-      <section className="testimonials-cta">
+      <section className="testimonials-cta gradient-bg">
         <div className="noise-overlay"></div>
         <div className="orb-container">
           <div className="orb orb-1"></div>

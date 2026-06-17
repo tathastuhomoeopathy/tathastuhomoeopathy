@@ -449,3 +449,39 @@
     margin: 0 16px !important;
   }
 }
+
+/* Question label */
+[class*="questionLabel"],
+[class*="question-label"],
+[class*="quizLabel"] {
+  color: #EDE7DB !important;
+  opacity: 1 !important;
+}
+
+/* Question text */
+[class*="questionText"],
+[class*="question-text"],
+[class*="quizQuestion"] {
+  color: #EDE7DB !important;
+  opacity: 1 !important;
+}
+
+/* Option text only */
+[class*="optionText"],
+[class*="option-text"] {
+  color: #EDE7DB !important;
+  opacity: 1 !important;
+}
+
+/* Option letter */
+[class*="optionLetter"],
+[class*="option-letter"] {
+  color: #EDE7DB !important;
+  opacity: 1 !important;
+}
+
+h3.quiz-question-text,
+.quiz-question-text {
+  color: #EDE7DB !important;
+  opacity: 1 !important;
+}

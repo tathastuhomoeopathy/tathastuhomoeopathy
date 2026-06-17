@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { FiArrowLeft, FiArrowRight, FiCheck } from 'react-icons/fi';
+import { GiLotus } from 'react-icons/gi';
+import { FaBrain } from 'react-icons/fa';
 import { pcosQuiz, mentalQuiz, scoreRanges, quizReports } from '../../data/quizData';
 import './Quiz.css';
 
 export default function Quiz() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const shouldReduceMotion = useReducedMotion();
   const quizType = searchParams.get('type'); // 'pcos' or 'mental'
 
   const [questions, setQuestions] = useState([]);
@@ -100,7 +103,7 @@ export default function Quiz() {
             </p>
             <div className="selection-options">
               <button className="select-btn glass-card" onClick={() => setSearchParams({ type: 'pcos' })}>
-                <span className="select-btn-icon">🌿</span>
+                <span className="select-btn-icon"><GiLotus style={{ color: '#9B9879', fontSize: '20px' }} /></span>
                 <div className="select-btn-text">
                   <h3>PCOS/PCOD Health Assessment</h3>
                   <p>Analyzes cycle intervals, hormonal acne, hair changes, metabolic fatigue, and family history.</p>
@@ -108,7 +111,7 @@ export default function Quiz() {
               </button>
               
               <button className="select-btn glass-card" onClick={() => setSearchParams({ type: 'mental' })}>
-                <span className="select-btn-icon">🧠</span>
+                <span className="select-btn-icon"><FaBrain style={{ color: '#9B9879', fontSize: '20px' }} /></span>
                 <div className="select-btn-text">
                   <h3>Mental Wellness Assessment</h3>
                   <p>Evaluates sleep patterns, anxiety frequencies, energy blocks, emotional resilience, and concentration difficulties.</p>
@@ -147,14 +150,25 @@ export default function Quiz() {
             <motion.div 
               key="quiz-card"
               className="quiz-card glass-card"
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 15 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.3 }}
+              exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -15 }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
             >
               {/* Progress Bar */}
               <div className="progress-header">
-                <span className="progress-label">
+                <span
+                  className="progress-label"
+                  style={{
+                    color: 'rgba(221, 204, 183, 0.7)',
+                    opacity: 1,
+                    fontSize: '10px',
+                    letterSpacing: '3px',
+                    textTransform: 'uppercase',
+                    display: 'block',
+                    marginBottom: '12px'
+                  }}
+                >
                   {quizType === 'pcos' ? 'PCOS Health Quiz' : 'Mental Wellness Quiz'} · Question {currentIdx + 1} of {questions.length}
                 </span>
                 <div className="progress-bar-bg glass-card">
@@ -167,13 +181,18 @@ export default function Quiz() {
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentIdx}
-                    initial={{ x: 50, opacity: 0 }}
+                    initial={{ x: shouldReduceMotion ? 0 : 50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: -50, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    exit={{ x: shouldReduceMotion ? 0 : -50, opacity: 0 }}
+                    transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
                     className="question-slide"
                   >
-                    <h3 className="quiz-question-title">{currentQuestion?.question}</h3>
+                    <h3
+                      className="quiz-question-text"
+                      style={{ color: '#EDE7DB', opacity: 1 }}
+                    >
+                      {currentQuestion?.question}
+                    </h3>
                     
                     <div className="quiz-options-list">
                       {currentQuestion?.options.map((opt, oIdx) => {
@@ -324,7 +343,6 @@ export default function Quiz() {
                       color: 'rgba(237,231,219,0.85)',
                       lineHeight: '1.7'
                     }}>
-                      <span style={{ color: '#DDCCB7', fontSize: '10px', marginTop: '5px', flexShrink: 0 }}>✦</span>
                       <span style={{ color: 'rgba(237,231,219,0.85)' }}>{item}</span>
                     </li>
                   ))}

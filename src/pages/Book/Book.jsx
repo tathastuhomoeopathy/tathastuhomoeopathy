@@ -15,21 +15,45 @@ export default function Book() {
   }
 
   const saveToSheets = async (paymentId) => {
+    const sheetsUrl = import.meta.env.VITE_SHEETS_URL
+
+    // Debug log 1 — check if URL exists
+    console.log('Sheets URL:', sheetsUrl)
+
+    if (!sheetsUrl) {
+      console.error('ERROR: VITE_SHEETS_URL is not set in .env file!')
+      return
+    }
+
+    const payload = {
+      type: 'payment',
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      concern: form.concern,
+      paymentId: paymentId,
+    }
+
+    // Debug log 2 — check payload
+    console.log('Sending payload:', JSON.stringify(payload))
+
     try {
-      await fetch(import.meta.env.VITE_SHEETS_URL, {
+      const response = await fetch(sheetsUrl, {
         method: 'POST',
+        mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: 'payment',
-          name: form.name,
-          email: form.email,
-          phone: form.phone,
-          concern: form.concern,
-          paymentId: paymentId,
-        })
+        body: JSON.stringify(payload)
       })
+
+      // Debug log 3 — response
+      console.log('Response type:', response.type)
+      console.log('Sheets request sent successfully')
+
     } catch (err) {
-      console.error('Sheets error:', err)
+      // Debug log 4 — exact error
+      console.error('FETCH ERROR:', err)
+      console.error('Error name:', err.name)
+      console.error('Error message:', err.message)
     }
   }
 
@@ -40,15 +64,17 @@ export default function Book() {
     }
     setError('')
 
-    // RazorPay temporarily disabled — navigate directly to success page
-    // TODO: Uncomment RazorPay block below when key is available
+    console.log('handlePayment called') // debug
+
+    // Call saveToSheets with test ID
+    saveToSheets('TEST-' + Date.now())
 
     navigate('/booking-success', {
       state: {
         name: form.name,
         email: form.email,
         phone: form.phone,
-        paymentId: 'TEST-' + Date.now() // temporary ID
+        paymentId: 'TEST-' + Date.now()
       }
     })
 
@@ -89,7 +115,7 @@ export default function Book() {
     <div className={styles.bookPage}>
 
       {/* Hero */}
-      <section className={styles.bookHero}>
+      <section className={`${styles.bookHero} gradient-bg`}>
         <div className={styles.bookHeroInner}>
           <span className={styles.eyebrow}>ONE-ON-ONE CONSULTATION</span>
           <h1 className={styles.bookTitle}>Book Your Session with Dr. Helee Patel</h1>

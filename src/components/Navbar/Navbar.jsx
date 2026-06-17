@@ -31,7 +31,7 @@ export default function Navbar() {
         <div className="navbar-container">
           <Link to="/" className="nav-logo">
             <img
-              src="https://res.cloudinary.com/dglf2h0t1/image/upload/v1781119066/Screenshot_2026-06-11_003316_kgutnv.png"
+              src="https://res.cloudinary.com/dglf2h0t1/image/upload/f_auto,q_auto/v1781119066/Screenshot_2026-06-11_003316_kgutnv.png"
               alt="Dr. Helee Homeopathy"
               className="nav-logo-img"
             />

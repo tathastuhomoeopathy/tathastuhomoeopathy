@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { FiArrowRight } from 'react-icons/fi';
 import { GiLotus, GiMeditation, GiSprout } from 'react-icons/gi';
+import { FaBrain } from 'react-icons/fa';
 import ScrollReveal from '../../components/ScrollReveal/ScrollReveal';
 import { resultsData } from '../../data/results';
 import VideoReel from '../../components/VideoReel/VideoReel';
@@ -20,20 +21,19 @@ const containerVariants = {
   }
 };
 
-const itemVariants = {
-  hidden: { y: 30, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: { type: 'spring', stiffness: 80, damping: 15 }
-  }
-};
-
-
-
 export default function Home() {
   const navigate = useNavigate();
   const homeResults = resultsData.slice(0, 5);
+  const shouldReduceMotion = useReducedMotion();
+
+  const itemVariants = {
+    hidden: { y: shouldReduceMotion ? 0 : 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: shouldReduceMotion ? { duration: 0 } : { type: 'spring', stiffness: 80, damping: 15 }
+    }
+  };
 
   return (
     <div className="home-page">
@@ -97,13 +97,13 @@ export default function Home() {
 
           <motion.div 
             className="hero-image-container"
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.8, delay: shouldReduceMotion ? 0 : 0.3 }}
           >
             <div className="hero-photo-box">
               <img
-                src="https://res.cloudinary.com/dglf2h0t1/image/upload/v1781118110/IMG_2064_qpmzlu.jpg"
+                src="https://res.cloudinary.com/dglf2h0t1/image/upload/f_auto,q_auto/v1781118110/IMG_2064_qpmzlu.jpg"
                 alt="Dr. Helee Patel"
                 style={{
                   width: '100%',
@@ -119,6 +119,7 @@ export default function Home() {
         </div>
       </section>
 
+
       {/* SECTION 2: ABOUT SNIPPET (WHITE background) */}
       <section className="section section-light">
         <div className="section-container">
@@ -127,7 +128,7 @@ export default function Home() {
               <div className="snippet-image-wrapper">
                 <div className="snippet-img-box">
                   <img
-                    src="https://res.cloudinary.com/dglf2h0t1/image/upload/v1781118110/IMG_2064_qpmzlu.jpg"
+                    src="https://res.cloudinary.com/dglf2h0t1/image/upload/f_auto,q_auto/v1781118110/IMG_2064_qpmzlu.jpg"
                     alt="Dr. Helee Patel"
                     style={{
                       width: '100%',
@@ -216,7 +217,7 @@ export default function Home() {
       </section>
 
       {/* SECTION 4: FREE HEALTH QUIZ CTA (DARK gradient) */}
-      <section className="section section-dark">
+      <section className="section section-dark gradient-bg">
         <div className="noise-overlay"></div>
         <div className="orb-container">
           <div className="orb orb-1"></div>
@@ -233,14 +234,14 @@ export default function Home() {
               </p>
               <div className="quiz-cta-options">
                 <Link to="/quiz?type=pcos" className="quiz-opt-btn glass-card">
-                  <span className="quiz-opt-icon">🌿</span>
+                  <span className="quiz-opt-icon"><GiLotus style={{ color: '#9B9879', fontSize: '20px' }} /></span>
                   <div className="quiz-opt-text">
                     <h4>PCOS/PCOD Health Check</h4>
                     <p>For Women's Cycle & Hormonal Health</p>
                   </div>
                 </Link>
                 <Link to="/quiz?type=mental" className="quiz-opt-btn glass-card">
-                  <span className="quiz-opt-icon">🧠</span>
+                  <span className="quiz-opt-icon"><FaBrain style={{ color: '#9B9879', fontSize: '20px' }} /></span>
                   <div className="quiz-opt-text">
                     <h4>Mental Wellness Check</h4>
                     <p>For Stress, Anxiety & Sleep Evaluation</p>
@@ -282,7 +283,7 @@ export default function Home() {
       <VideoReel />
 
       {/* SECTION 7: BOOK CONSULTATION CTA (DARK gradient) */}
-      <section className="section section-dark book-cta-section">
+      <section className="section section-dark book-cta-section gradient-bg">
         <div className="noise-overlay"></div>
         <div className="orb-container">
           <div className="orb orb-2"></div>
@@ -292,9 +293,6 @@ export default function Home() {
         <div className="section-container">
           <ScrollReveal y={40}>
             <div className="book-cta-card glass-card">
-              <div className="botanical-accent botanical-1">🍃</div>
-              <div className="botanical-accent botanical-2">✨</div>
-              
               <h2 className="section-title text-center" style={{ color: '#EDE7DB' }}>Ready to Start Your Healing Journey?</h2>
               <p className="section-subtitle text-center" style={{ color: 'rgba(237, 231, 219, 0.75)', marginBottom: '16px' }}>
                 Book a personalized, one-on-one Clarity Call with Dr. Helee Patel. Map out your symptoms and identify the root biological blockages holding your health back.

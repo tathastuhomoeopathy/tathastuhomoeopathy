@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiInstagram, FiMessageCircle } from 'react-icons/fi';
+import { GiLotus } from 'react-icons/gi';
 import './Footer.css';
 
 export default function Footer() {
@@ -14,7 +15,7 @@ export default function Footer() {
         <div className="footer-brand">
           <Link to="/" className="footer-logo">
             <img
-              src="https://res.cloudinary.com/dglf2h0t1/image/upload/v1781119066/Screenshot_2026-06-11_003316_kgutnv.png"
+              src="https://res.cloudinary.com/dglf2h0t1/image/upload/f_auto,q_auto/v1781119066/Screenshot_2026-06-11_003316_kgutnv.png"
               alt="Dr. Helee Homeopathy"
               className="footer-logo-img"
             />
@@ -68,9 +69,8 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Decorative Botanical Line Divider */}
       <div className="footer-divider">
-        <span className="leaf-icon">🌿</span>
+        <span className="leaf-icon"><GiLotus style={{ color: '#9B9879', fontSize: '20px' }} /></span>
       </div>
 
       <div className="footer-bottom">

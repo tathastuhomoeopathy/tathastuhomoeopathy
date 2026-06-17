@@ -827,3 +827,264 @@
     font-size: 13px !important;
   }
 }
+
+/* --- QUIZ GRID & SECTION C REDESIGN --- */
+
+.quizGridSection {
+  background: #EDE7DB;
+  padding: 80px;
+}
+
+.quizGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.quizCard {
+  background: #FFFFFF;
+  border-radius: 24px;
+  padding: 48px 40px;
+  border: 1px solid rgba(221, 204, 183, 0.6);
+  box-shadow: 0 4px 24px rgba(77, 52, 45, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.quizCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(77, 52, 45, 0.12);
+  border-color: rgba(155, 152, 121, 0.4);
+}
+
+.quizCardLabel {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #9B9879;
+}
+
+.quizCardTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  color: #4D342D;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.quizCardDesc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #6A6A53;
+  line-height: 1.7;
+  margin: 0;
+  flex: 1;
+}
+
+.quizStartBtn {
+  background: #4D342D;
+  color: #EDE7DB;
+  border: none;
+  padding: 13px 28px;
+  border-radius: 40px;
+  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: fit-content;
+  margin-top: 8px;
+}
+
+.quizStartBtn:hover {
+  background: #3a2720;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(77, 52, 45, 0.25);
+}
+
+/* Section C separator */
+.sectionDivider {
+  height: 1px;
+  background: rgba(221, 204, 183, 0.5);
+  margin: 0 80px;
+}
+
+.consultSection {
+  background: linear-gradient(135deg, #4D342D 0%, #6A6A53 60%, #9B9879 100%);
+  padding: 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.consultSection::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 20% 50%, rgba(77,52,45,0.6) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 60% at 80% 30%, rgba(106,106,83,0.5) 0%, transparent 50%);
+  z-index: 0;
+}
+
+.consultCard {
+  position: relative;
+  z-index: 1;
+  background: rgba(237, 231, 219, 0.08);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(237, 231, 219, 0.2);
+  border-radius: 24px;
+  padding: 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+.consultLabel {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(221, 204, 183, 0.6);
+  margin-bottom: 16px;
+  display: block;
+}
+
+.consultTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3.5vw, 44px);
+  color: #EDE7DB;
+  font-weight: 600;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.consultDesc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: rgba(237, 231, 219, 0.75);
+  line-height: 1.8;
+  max-width: 600px;
+  margin-bottom: 32px;
+}
+
+.consultBtn {
+  background: #EDE7DB;
+  color: #4D342D;
+  border: none;
+  padding: 15px 36px;
+  border-radius: 40px;
+  font-size: 15px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.consultBtn:hover {
+  background: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.25);
+}
+
+.consultDivider {
+  border: none;
+  border-top: 1px solid rgba(237, 231, 219, 0.15);
+  margin: 40px 0;
+}
+
+.consultStepsTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  color: #EDE7DB;
+  margin-bottom: 24px;
+}
+
+.consultStepsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.consultStep {
+  background: rgba(237, 231, 219, 0.07);
+  border: 1px solid rgba(237, 231, 219, 0.15);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.consultStepNum {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  color: rgba(237, 231, 219, 0.25);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.consultStepTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: #EDE7DB;
+  margin-bottom: 8px;
+}
+
+.consultStepDesc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: rgba(237, 231, 219, 0.65);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .quizGridSection {
+    padding: 48px 20px;
+  }
+  .quizGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .quizCard {
+    padding: 32px 24px;
+  }
+  .consultSection {
+    padding: 48px 20px;
+  }
+  .consultCard {
+    padding: 32px 24px;
+  }
+  .consultStepsGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+.quizFullWidth {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.backToQuizBtn {
+  background: transparent;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  color: #6A6A53;
+  cursor: pointer;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+}
+
+.backToQuizBtn:hover {
+  color: #4D342D;
+}

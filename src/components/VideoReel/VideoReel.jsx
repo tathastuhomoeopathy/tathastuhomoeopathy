@@ -58,7 +58,7 @@ export default function VideoReel() {
                 loop
                 muted
                 playsInline
-                preload="metadata"
+                preload="none"
                 onLoadedData={() => handleLoaded(item.id)}
               />
 

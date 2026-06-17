@@ -170,28 +170,28 @@ export const scoreRanges = [
     max: 6,
     level: "All Good",
     message: "Your systems are in general balance. You show optimal vital energy. Continue supporting your body and mind with nourishing meals, mild exercise, and mindfulness. We recommend an annual health review to maintain this natural state of harmony.",
-    badge: "🌿 Balanced Vitality"
+    badge: "Balanced Vitality"
   },
   {
     min: 7,
     max: 12,
     level: "Mild Concern",
     message: "Your body is showing early signs of stress and mild hormonal or nervous strain. Gentle lifestyle corrections combined with mild homeopathic support can act as a preventative shield, resolving symptoms before they amplify.",
-    badge: "⚠️ Early Warning Signs"
+    badge: "Early Warning Signs"
   },
   {
     min: 13,
     max: 18,
     level: "Moderate — Consultation Recommended",
     message: "Your symptoms indicate a clear functional imbalance. Ovarian or emotional stressors are impacting your day-to-day energy, cycle regularity, and overall vitality. A personal homeopathic constitutional assessment is highly recommended to gently restore internal equilibrium.",
-    badge: "🔍 Imbalance Detected"
+    badge: "Imbalance Detected"
   },
   {
     min: 19,
     max: 24,
     level: "High — Book Immediately",
     message: "Your system is under severe distress, exhibiting deep-seated metabolic, hormonal, or emotional exhaustion. These symptoms warrant immediate medical guidance. Personalized constitutional homeopathy can address the root issues safely and guide your body back to complete recovery.",
-    badge: "🚨 High Distress Level"
+    badge: "High Distress Level"
   }
 ];
 

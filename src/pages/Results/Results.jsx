@@ -11,11 +11,22 @@ export default function Results() {
     <div className="results-page">
       
       {/* HERO TITLE */}
-      <section className="pageHero">
+      <section style={{ color: 'rgba(237, 231, 219, 0.75)' }} className="pageHero gradient-bg">
         <div className="pageHeroInner">
           <span className="pageHeroEyebrow">TRANSFORMATION JOURNEYS</span>
           <h1 className="pageHeroTitle">Real Women, Real Results</h1>
-          <p className="pageHeroSubtitle">Explore detailed case records demonstrating recovery from PCOS/PCOD, endocrine disorders, and neural fatigue under constitutional homeopathy care.</p>
+          <p style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: '15px',
+            color: 'rgba(237, 231, 219, 0.75)',
+            lineHeight: '1.8',
+            fontWeight: '300',
+            maxWidth: '520px',
+            margin: '0 auto',
+            opacity: 1
+          }}>
+            Explore detailed case records demonstrating recovery from PCOS/PCOD, endocrine disorders, and neural fatigue under constitutional homeopathy care.
+          </p>
         </div>
       </section>
 
@@ -35,7 +46,7 @@ export default function Results() {
       </section>
 
       {/* CALL TO ACTION (DARK GRADIENT) */}
-      <section className="section section-dark results-cta">
+      <section className="section section-dark results-cta gradient-bg">
         <div className="noise-overlay"></div>
         <div className="orb-container">
           <div className="orb orb-1"></div>

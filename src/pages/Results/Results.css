@@ -57,11 +57,19 @@
   margin-bottom: 16px;
 }
 
+.pageHeroSubtitle,
+.heroSubtitle,
+.page-hero-subtitle,
+.results-page .pageHeroSubtitle,
+.results-page .heroSubtitle {
+  color: rgba(237, 231, 219, 0.75) !important;
+  opacity: 1 !important;
+  -webkit-text-fill-color: rgba(237, 231, 219, 0.75) !important;
+}
+
 .pageHeroSubtitle {
   font-family: 'DM Sans', sans-serif;
   font-size: 15px;
-  color: rgba(237, 231, 219, 0.75) !important;
-  opacity: 1 !important;
   line-height: 1.8;
   font-weight: 300;
   max-width: 520px;

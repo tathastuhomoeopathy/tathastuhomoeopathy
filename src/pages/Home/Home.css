@@ -671,9 +671,11 @@
     gap: 10px !important;
   }
 
-  .hero-photo-box {
-    height: 280px !important;
-    width: 100% !important;
+  .hero-photo-box,
+  .heroPhotoBox,
+  [class*="photoBox"],
+  [class*="photo-box"] {
+    display: none !important;
   }
 
   .hero-stats {

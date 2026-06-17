@@ -301,7 +301,7 @@ button {
 }
 
 .img-placeholder::before {
-  content: '🌿';
+  content: '';
   font-size: 1.8rem;
   margin-bottom: 8px;
   opacity: 0.7;
@@ -400,13 +400,6 @@ button {
   color: inherit !important;
 }
 
-[class*="quiz"] h3,
-[class*="result"] h3,
-[class*="quiz"] p,
-[class*="result"] p {
-  color: inherit !important;
-  opacity: 1 !important;
-}
 
 @media (max-width: 768px) {
   /* Prevent any horizontal overflow on all pages */
@@ -452,3 +445,30 @@ button {
   background: transparent !important;
   overflow: hidden !important;
 }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #4D342D 0%, #6A6A53 60%, #9B9879 100%) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.gradient-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 70% at 15% 50%, rgba(77,52,45,0.95) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 80% at 85% 30%, rgba(106,106,83,0.8) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 60% at 50% 80%, rgba(155,152,121,0.5) 0%, transparent 50%);
+  z-index: 0;
+}
+
+.gradient-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
