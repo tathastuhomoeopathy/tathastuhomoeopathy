@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   padding-top: 100px;
-  background: linear-gradient(135deg, #4D342D 0%, #6A6A53 100%);
+  background: #1a1208;
   color: var(--white);
   overflow: hidden;
 }
@@ -127,7 +127,7 @@
 /* CTA */
 .testimonials-cta {
   position: relative;
-  background: linear-gradient(135deg, #4D342D 0%, #6A6A53 100%);
+  background: #1a1208;
   overflow: hidden;
   padding-bottom: 80px;
 }
