@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { pcosQuiz, mentalQuiz, quizReports } from '../../data/quizData';
 import './Services.css';
@@ -10,6 +10,13 @@ export default function Services() {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeQuiz = searchParams.get('type');
   const isMobile = window.innerWidth <= 768;
+
+  // Redirect to dedicated quiz page if type is active
+  useEffect(() => {
+    if (activeQuiz === 'pcos' || activeQuiz === 'mental') {
+      navigate(`/quiz?type=${activeQuiz}`, { replace: true });
+    }
+  }, [activeQuiz, navigate]);
 
   // States for Inline PCOS Quiz
   const [pcosIdx, setPcosIdx] = useState(0);
@@ -149,7 +156,7 @@ export default function Services() {
                 <h2 className="quizCardTitle">PCOS / PCOD Health Check</h2>
                 <p className="quizCardDesc">Answer 8 quick questions about your symptoms and get your personalised health score.</p>
                 <button className="quizStartBtn" onClick={() => {
-                  setSearchParams({ type: 'pcos' });
+                  navigate('/quiz?type=pcos');
                 }}>
                   Start the Quiz →
                 </button>
@@ -161,7 +168,7 @@ export default function Services() {
                 <h2 className="quizCardTitle">Mental Wellness Check</h2>
                 <p className="quizCardDesc">A quick self-assessment to understand your current mental and emotional health.</p>
                 <button className="quizStartBtn" onClick={() => {
-                  setSearchParams({ type: 'mental' });
+                  navigate('/quiz?type=mental');
                 }}>
                   Start the Quiz →
                 </button>

@@ -16,10 +16,6 @@ export const resultsData = [
     image: 'https://res.cloudinary.com/dglf2h0t1/image/upload/f_auto,q_auto/v1781116896/IMG_4137_bteynk.jpg',
   },
   {
-    id: 5,
-    image: 'https://res.cloudinary.com/dglf2h0t1/image/upload/f_auto,q_auto/v1781116893/IMG_3409_bjoawo.jpg',
-  },
-  {
     id: 6,
     image: 'https://res.cloudinary.com/dglf2h0t1/image/upload/f_auto,q_auto/v1781116888/IMG_3639_wc6ata.jpg',
   },

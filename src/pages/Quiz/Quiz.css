@@ -485,3 +485,8 @@ h3.quiz-question-text,
   color: #EDE7DB !important;
   opacity: 1 !important;
 }
+
+/* Input placeholder text color fix */
+input::placeholder {
+  color: rgba(237, 231, 219, 0.45);
+}

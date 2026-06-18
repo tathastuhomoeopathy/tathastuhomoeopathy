@@ -13,6 +13,13 @@ export default function Quiz() {
   const shouldReduceMotion = useReducedMotion();
   const quizType = searchParams.get('type'); // 'pcos' or 'mental'
 
+  // Add these states at top of Quiz component
+  const [showLeadForm, setShowLeadForm] = useState(false)
+  const [showResult, setShowResult] = useState(false)
+  const [leadForm, setLeadForm] = useState({ name: '', email: '', phone: '' })
+  const [leadErrors, setLeadErrors] = useState({})
+  const [leadSubmitting, setLeadSubmitting] = useState(false)
+
   const [questions, setQuestions] = useState([]);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [answers, setAnswers] = useState({}); // { [questionIdx]: score }
@@ -35,6 +42,8 @@ export default function Quiz() {
     setAnswers({});
     setSelectedOptIdx(null);
     setIsFinished(false);
+    setShowLeadForm(false);
+    setShowResult(false);
     setTotalScore(0);
     setResultOutcome(null);
   }, [quizType]);
@@ -71,7 +80,7 @@ export default function Quiz() {
       // Determine score range matching the final score
       const outcome = scoreRanges.find(range => finalScore >= range.min && finalScore <= range.max);
       setResultOutcome(outcome);
-      setIsFinished(true);
+      setShowLeadForm(true);
     }
   };
 
@@ -128,10 +137,16 @@ export default function Quiz() {
   const progressPercent = questions.length ? Math.round(((currentIdx + 1) / questions.length) * 100) : 0;
 
   const resultData = quizReports[quizType]?.[totalScore <= 6 ? 'low' : totalScore <= 12 ? 'mild' : totalScore <= 18 ? 'moderate' : 'high'];
-  const resultLevel = resultData?.level;
+  const resultLevel = resultOutcome?.level || resultOutcome?.title || resultData?.level || '';
   const score = totalScore;
   const handleRetake = () => setSearchParams({ type: quizType });
   const isMobile = window.innerWidth <= 768;
+
+  if (isFinished) {
+    console.log('Result screen rendering')
+    console.log('leadForm state:', leadForm)
+    console.log('handleBookNow function:', typeof handleBookNow)
+  }
 
   return (
     <div className="quiz-play-page">
@@ -146,7 +161,7 @@ export default function Quiz() {
         </Link>
 
         <AnimatePresence mode="wait">
-          {!isFinished ? (
+          {!showLeadForm && !showResult ? (
             <motion.div 
               key="quiz-card"
               className="quiz-card glass-card"
@@ -234,6 +249,100 @@ export default function Quiz() {
                 </button>
               </div>
             </motion.div>
+          ) : showLeadForm ? (
+            <div style={{
+              background: 'rgba(15, 9, 4, 0.80)',
+              backdropFilter: 'blur(30px)',
+              WebkitBackdropFilter: 'blur(30px)',
+              border: '1px solid rgba(237, 231, 219, 0.25)',
+              borderRadius: '24px',
+              padding: isMobile ? '28px 20px' : '48px',
+              boxShadow: '0 24px 64px rgba(0,0,0,0.5)',
+              width: '100%',
+              maxWidth: '640px',
+              margin: isMobile ? '0 16px' : '0 auto',
+              color: '#EDE7DB',
+              textAlign: 'left'
+            }}>
+              <p style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: '24px',
+                color: '#EDE7DB',
+                marginBottom: '8px',
+                textAlign: 'center'
+              }}>
+                You're almost there!
+              </p>
+              <p style={{
+                fontFamily: "'DM Sans', sans-serif",
+                fontSize: '14px',
+                color: 'rgba(237,231,219,0.7)',
+                textAlign: 'center',
+                marginBottom: '32px',
+                lineHeight: '1.7'
+              }}>
+                Enter your details to see your personalised health report
+              </p>
+
+              <input type="text" placeholder="Full Name *" value={leadForm.name}
+                onChange={e => setLeadForm(p => ({...p, name: e.target.value}))}
+                style={{width:'100%',padding:'14px 16px',marginBottom:'14px',background:'rgba(237,231,219,0.08)',border:'1px solid rgba(237,231,219,0.2)',borderRadius:'10px',fontFamily:"'DM Sans',sans-serif",fontSize:'14px',color:'#EDE7DB',outline:'none',boxSizing:'border-box',display:'block'}}
+              />
+              <input type="email" placeholder="Email Address *" value={leadForm.email}
+                onChange={e => setLeadForm(p => ({...p, email: e.target.value}))}
+                style={{width:'100%',padding:'14px 16px',marginBottom:'14px',background:'rgba(237,231,219,0.08)',border:'1px solid rgba(237,231,219,0.2)',borderRadius:'10px',fontFamily:"'DM Sans',sans-serif",fontSize:'14px',color:'#EDE7DB',outline:'none',boxSizing:'border-box',display:'block'}}
+              />
+              <input type="tel" placeholder="Phone Number *" value={leadForm.phone}
+                onChange={e => setLeadForm(p => ({...p, phone: e.target.value}))}
+                style={{width:'100%',padding:'14px 16px',marginBottom:'24px',background:'rgba(237,231,219,0.08)',border:'1px solid rgba(237,231,219,0.2)',borderRadius:'10px',fontFamily:"'DM Sans',sans-serif",fontSize:'14px',color:'#EDE7DB',outline:'none',boxSizing:'border-box',display:'block'}}
+              />
+
+              <button
+                onClick={async () => {
+                  if (!leadForm.name.trim() || !leadForm.email.trim() || !leadForm.phone.trim()) {
+                    alert('Please fill all fields')
+                    return
+                  }
+
+                  // Build answers
+                  const answersObj = {}
+                  questions.forEach((q, idx) => {
+                    const score = answers[idx]
+                    const chosenOption = q.options?.find(opt => opt.score === score)
+                    answersObj[`q${idx + 1}`] = chosenOption ? chosenOption.label : ''
+                  })
+
+                  console.log('DEBUG:', { resultLevel, score: totalScore, quizType, answers: answersObj })
+
+                  // Save to quiz sheet
+                  try {
+                    await fetch(import.meta.env.VITE_SHEETS_URL, {
+                      method: 'POST',
+                      mode: 'no-cors',
+                      headers: {'Content-Type': 'application/json'},
+                      body: JSON.stringify({
+                        type: quizType === 'pcos' ? 'pcos_quiz' : 'mental_quiz',
+                        name: leadForm.name,
+                        email: leadForm.email,
+                        phone: leadForm.phone,
+                        answers: answersObj,
+                        score: totalScore,
+                        result: resultLevel,
+                      })
+                    })
+                  } catch(err) {
+                    console.error('Sheet error:', err)
+                  }
+
+                  // Now show result
+                  setShowLeadForm(false)
+                  setShowResult(true)
+                }}
+                style={{display:'block',width:'100%',background:'#EDE7DB',color:'#4D342D',border:'none',padding:'16px 32px',borderRadius:'40px',fontSize:'15px',fontFamily:"'DM Sans',sans-serif",fontWeight:'500',cursor:'pointer',textAlign:'center'}}
+              >
+                See My Health Report →
+              </button>
+            </div>
           ) : (
             <div style={{
               background: 'rgba(15, 9, 4, 0.80)',
@@ -373,29 +482,27 @@ export default function Quiz() {
                 </p>
               </div>
 
-              {/* CTA Button */}
+              {/* Book 1-on-1 button & Retake */}
               <button
-                onClick={() => navigate('/book')}
-                style={{
-                  display: 'block', width: '100%',
-                  background: '#EDE7DB', color: '#4D342D',
-                  border: 'none', padding: '18px 32px',
-                  borderRadius: '40px', fontSize: '15px',
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontWeight: '500', cursor: 'pointer',
-                  textAlign: 'center', marginTop: '32px',
-                  boxShadow: '0 4px 24px rgba(0,0,0,0.25)'
-                }}
+                onClick={() => navigate('/book', {
+                  state: {
+                    name: leadForm.name,
+                    email: leadForm.email,
+                    phone: leadForm.phone,
+                  }
+                })}
+                style={{display:'block',width:'100%',background:'#EDE7DB',color:'#4D342D',border:'none',padding:'18px 32px',borderRadius:'40px',fontSize:'15px',fontFamily:"'DM Sans',sans-serif",fontWeight:'500',cursor:'pointer',textAlign:'center',marginTop:'24px'}}
               >
-                Get Your Full Report — Book a 1-on-1 with Dr. Helee ↓
+                Book a 1-on-1 with Dr. Helee →
               </button>
 
-              {/* Retake */}
               <button
                 onClick={handleRetake}
                 style={{
-                  display: 'block', margin: '16px auto 0',
-                  background: 'none', border: 'none',
+                  display: 'block',
+                  margin: '20px auto 0',
+                  background: 'none',
+                  border: 'none',
                   fontFamily: "'DM Sans', sans-serif",
                   fontSize: '12px',
                   color: 'rgba(237,231,219,0.45)',

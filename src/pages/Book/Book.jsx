@@ -1,98 +1,93 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import styles from './Book.module.css'
 
 export default function Book() {
   const navigate = useNavigate()
+  const location = useLocation()
+  const prefill = location.state || {}
+
   const [form, setForm] = useState({
-    name: '', email: '', phone: '', concern: ''
+    name: prefill.name || '',
+    email: prefill.email || '',
+    phone: prefill.phone || '',
+    concern: ''
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [fieldErrors, setFieldErrors] = useState({})
+
+  const CONSULTATION_PRICE = 199 // Rs. 199
 
   const handleChange = (field, value) => {
     setForm(prev => ({ ...prev, [field]: value }))
+    setFieldErrors(prev => ({ ...prev, [field]: '' }))
   }
 
-  const saveToSheets = async (paymentId) => {
-    const sheetsUrl = import.meta.env.VITE_SHEETS_URL
+  const validate = () => {
+    const errors = {}
+    if (!form.name.trim()) errors.name = 'Name is required'
+    if (!form.email.trim()) errors.email = 'Email is required'
+    else if (!/\S+@\S+\.\S+/.test(form.email)) errors.email = 'Enter a valid email'
+    if (!form.phone.trim()) errors.phone = 'Phone number is required'
+    else if (form.phone.length < 10) errors.phone = 'Enter a valid phone number'
+    return errors
+  }
 
-    // Debug log 1 — check if URL exists
-    console.log('Sheets URL:', sheetsUrl)
-
-    if (!sheetsUrl) {
-      console.error('ERROR: VITE_SHEETS_URL is not set in .env file!')
-      return
-    }
-
-    const payload = {
-      type: 'payment',
-      name: form.name,
-      email: form.email,
-      phone: form.phone,
-      concern: form.concern,
-      paymentId: paymentId,
-    }
-
-    // Debug log 2 — check payload
-    console.log('Sending payload:', JSON.stringify(payload))
-
+  const saveToSheets = async (paymentId, status) => {
     try {
-      const response = await fetch(sheetsUrl, {
+      await fetch(import.meta.env.VITE_SHEETS_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({
+          type: 'payment',
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          concern: form.concern,
+          paymentId: paymentId,
+          status: status,
+          amount: CONSULTATION_PRICE,
+        })
       })
-
-      // Debug log 3 — response
-      console.log('Response type:', response.type)
-      console.log('Sheets request sent successfully')
-
     } catch (err) {
-      // Debug log 4 — exact error
-      console.error('FETCH ERROR:', err)
-      console.error('Error name:', err.name)
-      console.error('Error message:', err.message)
+      console.error('Sheets error:', err)
     }
   }
 
   const handlePayment = () => {
-    if (!form.name || !form.email || !form.phone) {
-      setError('Please fill all required fields.')
+    const errors = validate()
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors)
       return
     }
     setError('')
+    setLoading(true)
 
-    console.log('handlePayment called') // debug
+    if (!window.Razorpay) {
+      setLoading(false)
+      setError('Payment system failed to load. Please refresh the page and try again.')
+      return
+    }
 
-    // Call saveToSheets with test ID
-    saveToSheets('TEST-' + Date.now())
-
-    navigate('/booking-success', {
-      state: {
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        paymentId: 'TEST-' + Date.now()
-      }
-    })
-
-    /* RAZORPAY BLOCK — uncomment when key is ready
     const options = {
       key: import.meta.env.VITE_RAZORPAY_KEY,
-      amount: 50000,
+      amount: CONSULTATION_PRICE * 100, // paise mein
       currency: 'INR',
       name: 'Dr. Helee Homeopathy',
       description: '1-on-1 Consultation with Dr. Helee Patel',
+      image: 'https://res.cloudinary.com/dglf2h0t1/image/upload/v1781119066/Screenshot_2026-06-11_003316_kgutnv.png',
       handler: async function (response) {
-        await saveToSheets(response.razorpay_payment_id)
+        await saveToSheets(response.razorpay_payment_id, 'PAID')
+        setLoading(false)
         navigate('/booking-success', {
           state: {
             name: form.name,
             email: form.email,
             phone: form.phone,
-            paymentId: response.razorpay_payment_id
+            paymentId: response.razorpay_payment_id,
+            amount: CONSULTATION_PRICE,
           }
         })
       },
@@ -103,19 +98,41 @@ export default function Book() {
       },
       theme: { color: '#4D342D' },
       modal: {
-        ondismiss: () => setLoading(false)
+        ondismiss: async function () {
+          await saveToSheets('CANCELLED-' + Date.now(), 'CANCELLED')
+          setLoading(false)
+          setError('Payment was cancelled. Please try again.')
+        }
       }
     }
-    const razor = new window.Razorpay(options)
-    razor.open()
-    */
+
+    try {
+      const razor = new window.Razorpay(options)
+      razor.on('payment.failed', async function (response) {
+        await saveToSheets(response.error.metadata?.payment_id || 'FAILED-' + Date.now(), 'FAILED')
+        setLoading(false)
+        setError('Payment failed: ' + response.error.description + '. Please try again.')
+      })
+      razor.open()
+    } catch (err) {
+      setLoading(false)
+      setError('Something went wrong. Please refresh and try again.')
+    }
   }
 
   return (
     <div className={styles.bookPage}>
 
+      {/* Loading overlay */}
+      {loading && (
+        <div className={styles.loadingOverlay}>
+          <div className={styles.loadingSpinner} />
+          <p className={styles.loadingText}>Opening secure payment...</p>
+        </div>
+      )}
+
       {/* Hero */}
-      <section className={`${styles.bookHero} gradient-bg`}>
+      <section className={styles.bookHero}>
         <div className={styles.bookHeroInner}>
           <span className={styles.eyebrow}>ONE-ON-ONE CONSULTATION</span>
           <h1 className={styles.bookTitle}>Book Your Session with Dr. Helee Patel</h1>
@@ -123,7 +140,7 @@ export default function Book() {
         </div>
       </section>
 
-      {/* What you get */}
+      {/* Steps */}
       <section className={styles.featuresSection}>
         <div className={styles.featuresGrid}>
           <div className={styles.featureCard}>
@@ -134,7 +151,7 @@ export default function Book() {
           <div className={styles.featureCard}>
             <span className={styles.featureNum}>02</span>
             <h3 className={styles.featureTitle}>Complete Payment</h3>
-            <p className={styles.featureDesc}>Secure payment via RazorPay. Your slot is confirmed only after payment.</p>
+            <p className={styles.featureDesc}>Secure payment of <strong>Rs. {CONSULTATION_PRICE}</strong> via RazorPay. Slot confirmed only after payment.</p>
           </div>
           <div className={styles.featureCard}>
             <span className={styles.featureNum}>03</span>
@@ -148,39 +165,61 @@ export default function Book() {
       <section className={styles.formSection}>
         <div className={styles.formCard}>
           <h2 className={styles.formTitle}>Reserve Your Session</h2>
-          <p className={styles.formSubtitle}>All fields marked * are required</p>
+          <p className={styles.formSubtitle}>Consultation Fee: <strong>Rs. {CONSULTATION_PRICE}</strong></p>
+
+          {prefill.name && (
+            <div style={{
+              background: 'rgba(155,152,121,0.1)',
+              border: '1px solid rgba(155,152,121,0.3)',
+              borderRadius: '10px',
+              padding: '10px 16px',
+              marginBottom: '20px'
+            }}>
+              <p style={{
+                fontSize: '13px',
+                color: '#6A6A53',
+                fontFamily: "'DM Sans', sans-serif",
+                margin: 0
+              }}>
+                ✓ Your details have been prefilled from your quiz
+              </p>
+            </div>
+          )}
 
           <div className={styles.formField}>
             <label className={styles.formLabel}>Full Name *</label>
             <input
               type="text"
-              className={styles.formInput}
+              className={`${styles.formInput} ${fieldErrors.name ? styles.inputError : ''}`}
               placeholder="Your full name"
               value={form.name}
               onChange={e => handleChange('name', e.target.value)}
             />
+            {fieldErrors.name && <span className={styles.errorText}>{fieldErrors.name}</span>}
           </div>
 
           <div className={styles.formField}>
             <label className={styles.formLabel}>Email Address *</label>
             <input
               type="email"
-              className={styles.formInput}
+              className={`${styles.formInput} ${fieldErrors.email ? styles.inputError : ''}`}
               placeholder="your@email.com"
               value={form.email}
               onChange={e => handleChange('email', e.target.value)}
             />
+            {fieldErrors.email && <span className={styles.errorText}>{fieldErrors.email}</span>}
           </div>
 
           <div className={styles.formField}>
             <label className={styles.formLabel}>Phone Number *</label>
             <input
               type="tel"
-              className={styles.formInput}
+              className={`${styles.formInput} ${fieldErrors.phone ? styles.inputError : ''}`}
               placeholder="+91 XXXXX XXXXX"
               value={form.phone}
               onChange={e => handleChange('phone', e.target.value)}
             />
+            {fieldErrors.phone && <span className={styles.errorText}>{fieldErrors.phone}</span>}
           </div>
 
           <div className={styles.formField}>
@@ -193,16 +232,17 @@ export default function Book() {
             />
           </div>
 
-          {error && (
-            <p className={styles.errorMsg}>{error}</p>
-          )}
+          {error && <p className={styles.errorMsg}>{error}</p>}
 
           <button
             className={styles.submitBtn}
             onClick={handlePayment}
+            disabled={loading}
           >
-            Book Consultation →
+            {loading ? 'Processing...' : `Book Consultation — Rs. ${CONSULTATION_PRICE} →`}
           </button>
+
+          <p className={styles.secureNote}>🔒 Secured by RazorPay. Your data is safe.</p>
         </div>
       </section>
 
