@@ -298,7 +298,7 @@ export default function Quiz() {
               />
 
               <button
-                onClick={async () => {
+                onClick={() => {
                   if (!leadForm.name.trim() || !leadForm.email.trim() || !leadForm.phone.trim()) {
                     alert('Please fill all fields')
                     return
@@ -315,24 +315,20 @@ export default function Quiz() {
                   console.log('DEBUG:', { resultLevel, score: totalScore, quizType, answers: answersObj })
 
                   // Save to quiz sheet
-                  try {
-                    await fetch(import.meta.env.VITE_SHEETS_URL, {
-                      method: 'POST',
-                      mode: 'no-cors',
-                      headers: {'Content-Type': 'application/json'},
-                      body: JSON.stringify({
-                        type: quizType === 'pcos' ? 'pcos_quiz' : 'mental_quiz',
-                        name: leadForm.name,
-                        email: leadForm.email,
-                        phone: leadForm.phone,
-                        answers: answersObj,
-                        score: totalScore,
-                        result: resultLevel,
-                      })
+                  fetch(import.meta.env.VITE_SHEETS_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                      type: quizType === 'pcos' ? 'pcos_quiz' : 'mental_quiz',
+                      name: leadForm.name,
+                      email: leadForm.email,
+                      phone: leadForm.phone,
+                      answers: answersObj,
+                      score: totalScore,
+                      result: resultLevel,
                     })
-                  } catch(err) {
-                    console.error('Sheet error:', err)
-                  }
+                  }).catch(err => console.error('Sheet error:', err))
 
                   // Now show result
                   setShowLeadForm(false)

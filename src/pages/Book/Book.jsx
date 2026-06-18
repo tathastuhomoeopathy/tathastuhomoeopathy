@@ -17,7 +17,7 @@ export default function Book() {
   const [error, setError] = useState('')
   const [fieldErrors, setFieldErrors] = useState({})
 
-  const CONSULTATION_PRICE = 199 // Rs. 199
+  const CONSULTATION_PRICE = 399 // Rs. 399
 
   const handleChange = (field, value) => {
     setForm(prev => ({ ...prev, [field]: value }))
