@@ -335,55 +335,72 @@
 }
 
 /* SECTION 3: SPECIALISATIONS */
-.services-preview-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-}
-
-.service-preview-card {
-  padding: 40px 30px;
+.specialisationsStrip {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-  height: 100%;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 8px 0 20px;
+  cursor: grab;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
-.service-icon-box {
-  width: 60px;
-  height: 60px;
+.specialisationsStrip::-webkit-scrollbar {
+  display: none;
+}
+
+.specCard {
+  flex-shrink: 0;
+  width: 320px;
+  background: #FFFFFF;
+  border: 1px solid rgba(221, 204, 183, 0.6);
+  border-radius: 20px;
+  padding: 32px 28px;
+  transition: all 0.3s ease;
+}
+
+.specCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(77, 52, 45, 0.1);
+}
+
+.specIcon {
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  background: rgba(155, 152, 121, 0.15);
+  background: #EDE7DB;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-primary);
-  margin-bottom: 8px;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #4D342D;
 }
 
-.service-preview-card h3 {
-  font-size: 1.45rem;
+.specTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  color: #4D342D;
+  margin-bottom: 12px;
+}
+
+.specSummary {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #6A6A53;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.specLearnMore {
+  background: none;
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
   font-weight: 600;
-  color: var(--text-primary);
-}
-
-.service-preview-card p {
-  font-size: 0.95rem;
-  line-height: 1.55;
-}
-
-.card-link {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--text-primary);
-  margin-top: auto;
-  border-bottom: 1.5px solid transparent;
-}
-
-.card-link:hover {
-  color: var(--accent);
-  border-color: var(--accent);
+  color: #4D342D;
+  cursor: pointer;
+  padding: 0;
 }
 
 /* SECTION 4: FREE HEALTH QUIZ CTA */
@@ -689,5 +706,10 @@
 
   .quiz-cta-card {
     padding: 30px;
+  }
+
+  .specCard {
+    width: 260px;
+    padding: 24px 20px;
   }
 }

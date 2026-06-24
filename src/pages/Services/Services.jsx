@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { pcosQuiz, mentalQuiz, quizReports } from '../../data/quizData';
+import FAQSection from '../../components/FAQSection/FAQSection';
 import './Services.css';
 
 const letters = ['A', 'B', 'C', 'D'];
@@ -690,6 +691,8 @@ export default function Services() {
           </div>
         </div>
       </section>
+
+      <FAQSection />
     </div>
   );
 }

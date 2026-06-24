@@ -16,6 +16,7 @@ import Gallery from './pages/Gallery/Gallery';
 import Book from './pages/Book/Book';
 import BookingSuccess from './pages/BookingSuccess/BookingSuccess';
 import Quiz from './pages/Quiz/Quiz';
+import AreasOfInterest from './pages/AreasOfInterest/AreasOfInterest';
 
 // Page Transition Wrapper
 const PageWrapper = ({ children }) => {
@@ -56,6 +57,7 @@ export default function App() {
             <Route path="/book" element={<PageWrapper><Book /></PageWrapper>} />
             <Route path="/booking-success" element={<PageWrapper><BookingSuccess /></PageWrapper>} />
             <Route path="/quiz" element={<PageWrapper><Quiz /></PageWrapper>} />
+            <Route path="/areas-of-interest" element={<PageWrapper><AreasOfInterest /></PageWrapper>} />
           </Routes>
         </AnimatePresence>
       </main>

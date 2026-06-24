@@ -66,16 +66,6 @@
   margin: 0 auto;
 }
 
-@media (max-width: 768px) {
-  .pageHeroInner {
-    padding: 110px 24px 60px;
-  }
-  .pageHeroTitle {
-    font-size: 32px;
-  }
-}
-
-
 /* DOCTOR STORY */
 .story-grid {
   display: grid;
@@ -174,41 +164,6 @@
   line-height: 1.6;
 }
 
-/* PHILOSOPHY */
-.philosophy-card {
-  padding: 60px;
-  border-radius: var(--radius-card);
-  position: relative;
-  overflow: hidden;
-}
-
-.philosophy-accent {
-  position: absolute;
-  top: 10%;
-  right: 5%;
-  font-size: 4rem;
-  opacity: 0.08;
-  pointer-events: none;
-  color: var(--text-primary);
-}
-
-.philosophy-text-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-}
-
-.phil-col h4 {
-  font-size: 1.3rem;
-  color: var(--text-primary);
-  margin-bottom: 12px;
-}
-
-.phil-col p {
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
 /* GALLERY STRIP */
 .gallery-strip {
   display: grid;
@@ -222,6 +177,61 @@
   border-color: var(--accent);
 }
 
+/* ACHIEVEMENTS SECTION */
+.achievementsSection {
+  background: #DDCCB7;
+  padding: 80px;
+}
+
+.achievementsHeader {
+  margin-bottom: 32px;
+}
+
+.achievementsTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3.5vw, 44px);
+  color: #4D342D;
+}
+
+.achievementsStrip {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 8px 0 20px;
+  cursor: grab;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.achievementsStrip:active {
+  cursor: grabbing;
+}
+
+.achievementsStrip::-webkit-scrollbar {
+  display: none;
+}
+
+.achievementCard {
+  flex-shrink: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  max-height: 400px;
+}
+
+.achievementCard:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 32px rgba(77, 52, 45, 0.2);
+}
+
+.achievementImg {
+  height: 400px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
 /* CTA SECTION */
 .about-cta-card {
   padding: 60px 40px;
@@ -232,9 +242,101 @@
   gap: 20px;
 }
 
+/* MISSION & VISION SECTION */
+.missionSection {
+  background: #EDE7DB;
+  padding: 80px;
+}
+
+.missionGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.missionCard {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 40px 32px;
+  border: 1px solid rgba(221, 204, 183, 0.5);
+}
+
+.missionLabel {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #9B9879;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.missionText {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: #4D342D;
+  line-height: 1.8;
+}
+
+/* TREATMENT PHILOSOPHY SECTION */
+.philosophySection {
+  background: #FFFFFF;
+  padding: 80px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.philosophyTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3.5vw, 40px);
+  color: #4D342D;
+  margin-bottom: 12px;
+}
+
+.philosophySubtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #9B9879;
+  margin-bottom: 32px;
+}
+
+.philosophyList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.philosophyItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(221, 204, 183, 0.4);
+}
+
+.philosophyItem:last-child {
+  border-bottom: none;
+}
+
+.philosophyNum {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  color: #9B9879;
+  flex-shrink: 0;
+}
+
+.philosophyItem p {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: #4D342D;
+  line-height: 1.7;
+  margin: 0;
+}
+
 /* RESPONSIVE LAYOUT */
 @media (max-width: 1024px) {
-  
   .story-grid {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -249,12 +351,7 @@
     grid-template-columns: 1fr;
     gap: 24px;
   }
-  
-  .philosophy-text-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  
+
   .gallery-strip {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
@@ -262,7 +359,27 @@
 }
 
 @media (max-width: 768px) {
-  .philosophy-card {
-    padding: 30px;
+  .pageHeroInner {
+    padding: 110px 24px 60px;
+  }
+  
+  .pageHeroTitle {
+    font-size: 32px;
+  }
+
+  .achievementsSection {
+    padding: 48px 20px;
+  }
+  
+  .achievementImg {
+    height: 280px;
+  }
+
+  .missionSection, .philosophySection {
+    padding: 48px 20px;
+  }
+  
+  .missionGrid {
+    grid-template-columns: 1fr;
   }
 }

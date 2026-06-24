@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { GiLotus, GiDiploma, GiHealthNormal } from 'react-icons/gi';
 import { FaBrain } from 'react-icons/fa';
 import ScrollReveal from '../../components/ScrollReveal/ScrollReveal';
+import { achievementImages } from '../../data/gallery';
 import './About.css';
 
 export default function About() {
@@ -18,8 +19,8 @@ export default function About() {
         </div>
       </section>
 
-      {/* DOCTOR STORY (WHITE background) */}
-      <section className="section section-light">
+      {/* DOCTOR STORY (EGG SHELL background) */}
+      <section className="section section-soft">
         <div className="section-container">
           <div className="story-grid">
             <ScrollReveal y={30}>
@@ -64,8 +65,8 @@ export default function About() {
         </div>
       </section>
 
-      {/* CREDENTIALS (EGG SHELL background) */}
-      <section className="section section-soft">
+      {/* CREDENTIALS (WHITE background) */}
+      <section className="section section-light">
         <div className="section-container">
           <div className="center-header">
             <span className="eyebrow">Qualifications</span>
@@ -100,31 +101,82 @@ export default function About() {
         </div>
       </section>
 
-      {/* PHILOSOPHY (LINEN background) */}
-      <section className="section section-warm">
-        <div className="section-container">
-          <div className="philosophy-card default-card glass-card">
-            <div className="philosophy-accent"><GiLotus style={{ color: '#9B9879', fontSize: '4rem' }} /></div>
-            <ScrollReveal y={30}>
-              <span className="eyebrow">Our Philosophy</span>
-              <h2 className="section-title text-wine">Why Classical Homeopathy?</h2>
-              <div className="philosophy-text-grid">
-                <div className="phil-col">
-                  <h4>Constitutional Prescription</h4>
-                  <p>We do not give generic medicines. Each remedy is selected based on your physical constitution, emotional profile, thermal sensitivities, and chronic symptoms. This ensures the medicine fits you, not just your condition.</p>
-                </div>
-                <div className="phil-col">
-                  <h4>Minimalist & Gentle</h4>
-                  <p>By using micro-dosed natural stimulants, homeopathy prompts a self-corrective vital response. It is non-habit forming, carries zero toxicity, and is completely safe for teenagers, pregnant mothers, and seniors alike.</p>
-                </div>
-              </div>
-            </ScrollReveal>
+      {/* Section: Mission & Vision */}
+      <ScrollReveal y={30}>
+        <section className="missionSection">
+          <div className="missionGrid">
+            <div className="missionCard">
+              <span className="missionLabel">MY MISSION</span>
+              <p className="missionText">
+                To help individuals achieve lasting health by addressing the root cause of disease through personalized homoeopathic treatment, patient education, and holistic healing.
+              </p>
+            </div>
+            <div className="missionCard">
+              <span className="missionLabel">MY VISION</span>
+              <p className="missionText">
+                To create a healthier world where people understand their bodies, trust their healing potential, and receive individualized care that treats them as a whole person.
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </ScrollReveal>
 
-      {/* Photo Strip (WHITE background) */}
-      <section className="section section-light">
+      {/* Section: Treatment Philosophy */}
+      <ScrollReveal y={30}>
+        <section className="philosophySection">
+          <span className="eyebrow">DOCTOR'S PHILOSOPHY</span>
+          <h2 className="philosophyTitle">My Treatment Philosophy</h2>
+          <p className="philosophySubtitle">At Tathastu Homoeopathy Clinic, I believe:</p>
+
+          <div className="philosophyList">
+            <div className="philosophyItem">
+              <span className="philosophyNum">01</span>
+              <p>Every patient is unique.</p>
+            </div>
+            <div className="philosophyItem">
+              <span className="philosophyNum">02</span>
+              <p>Disease begins long before symptoms appear.</p>
+            </div>
+            <div className="philosophyItem">
+              <span className="philosophyNum">03</span>
+              <p>Emotional health influences physical health.</p>
+            </div>
+            <div className="philosophyItem">
+              <span className="philosophyNum">04</span>
+              <p>Healing should be gentle and sustainable.</p>
+            </div>
+            <div className="philosophyItem">
+              <span className="philosophyNum">05</span>
+              <p>True treatment addresses the cause, not just the diagnosis.</p>
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      {/* Achievements Section */}
+      <ScrollReveal y={30}>
+        <section className="achievementsSection">
+          <div className="achievementsHeader">
+            <span className="eyebrow">COLLECTION</span>
+            <h2 className="achievementsTitle">Achievements</h2>
+          </div>
+
+          <div className="achievementsStrip">
+            {achievementImages.map((item) => (
+              <div key={item.id} className="achievementCard">
+                <img
+                  src={item.url}
+                  alt="Achievement"
+                  className="achievementImg"
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+      </ScrollReveal>
+
+      {/* Our Space section */}
+      {/* <section className="section section-light">
         <div className="section-container">
           <div className="center-header">
             <span className="eyebrow">Our Spaces</span>
@@ -198,7 +250,7 @@ export default function About() {
             </ScrollReveal>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA SECTION (DARK gradient) */}
       <section className="section section-dark about-cta gradient-bg">

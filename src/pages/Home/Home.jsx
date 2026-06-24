@@ -5,8 +5,54 @@ import { GiLotus, GiMeditation, GiSprout } from 'react-icons/gi';
 import { FaBrain } from 'react-icons/fa';
 import ScrollReveal from '../../components/ScrollReveal/ScrollReveal';
 import { resultsData } from '../../data/results';
+import { areasOfInterest } from '../../data/areasOfInterest';
 import VideoReel from '../../components/VideoReel/VideoReel';
+import FAQSection from '../../components/FAQSection/FAQSection';
 import './Home.css';
+
+const renderIcon = (icon) => {
+  switch (icon) {
+    case 'flower':
+      return (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 2a15 15 0 0 0-3 9 3 3 0 1 0 6 0 15 15 0 0 0-3-9z" />
+          <path d="M12 14a15 15 0 0 0-9 3 3 0 1 0 6 6 15 15 0 0 0 3-9z" />
+          <path d="M12 14a15 15 0 0 0 9 3 3 0 1 0-6 6 15 15 0 0 0-3-9z" />
+          <circle cx="12" cy="12" r="2" fill="currentColor" />
+        </svg>
+      );
+    case 'leaf':
+      return (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1 9.8a7 7 0 0 1-9 8.2z" />
+          <path d="M19 2L12 13" />
+        </svg>
+      );
+    case 'sparkle':
+      return (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 3v18" />
+          <path d="M3 12h18" />
+          <path d="M18.36 5.64L5.64 18.36" />
+          <path d="M5.64 5.64l12.72 12.72" />
+        </svg>
+      );
+    case 'lotus':
+      return (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-3.3 0-6-2.7-6-6 0-1.8.8-3.4 2.1-4.5C9.2 8.7 10.5 8 12 8s2.8.7 3.9 1.5c1.3 1.1 2.1 2.7 2.1 4.5 0 3.3-2.7 6-6 6zm0-10c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z" />
+        </svg>
+      );
+    case 'pulse':
+      return (
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+};
 
 // Framer Motion Animation Settings
 const containerVariants = {
@@ -168,49 +214,29 @@ export default function Home() {
       </section>
 
       {/* SECTION 3: SPECIALISATIONS (EGG SHELL background) */}
-      <section className="section section-soft">
+      <section className="section section-soft specialisationsSection">
         <div className="section-container">
-          <div className="center-header">
-            <span className="eyebrow">Specialisations</span>
-            <h2 className="section-title">Restoring Holistic Health</h2>
+          <div className="center-header specialisationsHeader">
+            <span className="eyebrow">SPECIALISATIONS</span>
+            <h2 className="section-title specialisationsTitle">Restoring Holistic Health</h2>
           </div>
 
-          <div className="services-preview-grid">
-            {/* Card 1: PCOS / PCOD Reversal */}
-            <ScrollReveal y={30} delay={0.1}>
-              <div className="service-preview-card default-card glass-card">
-                <div className="service-icon-box">
-                  <GiLotus size={32} />
+          <div className="specialisationsStrip">
+            {areasOfInterest.map((area) => (
+              <div key={area.id} className="specCard">
+                <div className="specIcon">
+                  {renderIcon(area.icon)}
                 </div>
-                <h3>PCOS / PCOD Reversal</h3>
-                <p>Comprehensive hormonal rebalancing using classical homeopathic therapeutics targeting menstrual cycles, thyroid balance, and metabolic health.</p>
-                <Link to="/services#pcos-pcod" className="card-link">Learn More</Link>
+                <h3 className="specTitle">{area.title}</h3>
+                <p className="specSummary">{area.summary}</p>
+                <button
+                  className="specLearnMore"
+                  onClick={() => navigate(`/areas-of-interest#${area.id}`)}
+                >
+                  Learn More →
+                </button>
               </div>
-            </ScrollReveal>
-
-          {/* Card 2: Classical Homeopathy */}
-          <ScrollReveal y={30} delay={0.2}>
-            <div className="service-preview-card default-card glass-card">
-              <div className="service-icon-box">
-                <GiSprout size={32} />
-              </div>
-              <h3>Classical Homeopathy</h3>
-              <p>Root-cause constitutional treatment using potentised remedies tailored to your unique physical, mental and emotional state.</p>
-              <Link to="/services#one-on-one" className="card-link">Learn More</Link>
-            </div>
-          </ScrollReveal>
-
-          {/* Card 3: Mental & Emotional Wellness */}
-          <ScrollReveal y={30} delay={0.3}>
-            <div className="service-preview-card default-card glass-card">
-              <div className="service-icon-box">
-                <GiMeditation size={32} />
-              </div>
-              <h3>Mental & Emotional Wellness</h3>
-              <p>Gentle homeopathic protocols for anxiety, grief, burnout, panic attacks and emotional imbalances — no side effects, no dependency.</p>
-              <Link to="/services#mental-wellness" className="card-link">Learn More</Link>
-            </div>
-          </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>
@@ -280,6 +306,8 @@ export default function Home() {
 
       {/* SECTION 6: VIDEO TESTIMONIALS (WHITE background) */}
       <VideoReel />
+
+      <FAQSection />
 
       {/* SECTION 7: BOOK CONSULTATION CTA (DARK gradient) */}
       <section className="section section-dark book-cta-section gradient-bg">
