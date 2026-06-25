@@ -48,8 +48,8 @@ export default function Footer() {
           <div className="footer-col">
             <h4 className="footer-title">Self-Care Quiz</h4>
             <ul className="footer-links">
-              <li><Link to="/services?type=pcos">PCOS/PCOD Assessment</Link></li>
-              <li><Link to="/services?type=mental">Mental Wellness Check</Link></li>
+              <li><Link to="/services?type=pcos">Click To Start - PCOS/PCOD Assessment</Link></li>
+              <li><Link to="/services?type=mental">Click To Start - Mental Wellness Check</Link></li>
               <li><Link to="/book">Consultation Pricing</Link></li>
             </ul>
           </div>
