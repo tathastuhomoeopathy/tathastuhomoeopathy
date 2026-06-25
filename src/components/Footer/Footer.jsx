@@ -27,7 +27,7 @@ export default function Footer() {
             <a href="https://instagram.com/drhelee_tathastuhomoeopathy" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Instagram">
               <FiInstagram size={20} />
             </a>
-            <a href="https://wa.me/+919016663549" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="WhatsApp">
+            <a href="https://wa.me/+917043136718" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="WhatsApp">
               <FiMessageCircle size={20} />
             </a>
           </div>
