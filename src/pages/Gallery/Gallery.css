@@ -140,3 +140,69 @@
     height: 280px;
   }
 }
+
+/* Clinic section */
+.clinicSection {
+  background: #FFFFFF;
+  padding: 80px;
+}
+
+.clinicHeader {
+  margin-bottom: 32px;
+}
+
+.clinicTitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3.5vw, 44px);
+  color: #4D342D;
+}
+
+.clinicStrip {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 8px 0 20px;
+  cursor: grab;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.clinicStrip:active {
+  cursor: grabbing;
+}
+
+.clinicStrip::-webkit-scrollbar {
+  display: none;
+}
+
+.clinicCard {
+  flex-shrink: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  max-height: 400px;
+}
+
+.clinicCard:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 32px rgba(77, 52, 45, 0.2);
+}
+
+.clinicImg {
+  height: 400px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .clinicSection {
+    padding: 48px 20px;
+  }
+  .clinicImg {
+    height: 280px;
+  }
+}
+
+

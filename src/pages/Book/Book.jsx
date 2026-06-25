@@ -63,6 +63,13 @@ export default function Book() {
       return
     }
     setError('')
+
+    const expectedAmount = 399 * 100
+    if (CONSULTATION_PRICE * 100 !== expectedAmount) {
+      setError('Something went wrong. Please refresh and try again.')
+      return
+    }
+
     setLoading(true)
 
     if (!window.Razorpay) {
@@ -77,7 +84,7 @@ export default function Book() {
       currency: 'INR',
       name: 'Dr. Helee Homeopathy',
       description: '1-on-1 Consultation with Dr. Helee Patel',
-      image: 'https://res.cloudinary.com/dglf2h0t1/image/upload/v1781119066/Screenshot_2026-06-11_003316_kgutnv.png',
+      image: 'https://res.cloudinary.com/dglf2h0t1/image/upload/f_auto,q_auto/v1781119066/Screenshot_2026-06-11_003316_kgutnv.png',
       handler: async function (response) {
         await saveToSheets(response.razorpay_payment_id, 'PAID')
         setLoading(false)

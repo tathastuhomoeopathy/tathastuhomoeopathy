@@ -43,7 +43,8 @@ export default function About() {
               <div className="story-box-wrapper">
                 <div className="story-img-box">
                   <img
-                    src="https://res.cloudinary.com/dglf2h0t1/image/upload/f_auto,q_auto/v1781118110/IMG_2064_qpmzlu.jpg"
+                    src="https://res.cloudinary.com/dglf2h0t1/image/upload/f_auto,q_auto/v1782375640/WhatsApp_Image_2026-06-25_at_13.48.39_nuqlqy.jpg"
+                    loading="lazy"
                     alt="Dr. Helee Patel"
                     style={{
                       width: '100%',

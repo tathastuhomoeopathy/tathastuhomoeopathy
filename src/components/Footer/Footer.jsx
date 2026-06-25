@@ -15,6 +15,7 @@ export default function Footer() {
           <Link to="/" className="footer-logo">
             <img
               src="https://res.cloudinary.com/dglf2h0t1/image/upload/f_auto,q_auto/v1781119066/Screenshot_2026-06-11_003316_kgutnv.png"
+              loading="lazy"
               alt="Dr. Helee Homeopathy"
               className="footer-logo-img"
             />
