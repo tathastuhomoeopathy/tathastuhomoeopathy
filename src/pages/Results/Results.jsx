@@ -14,7 +14,7 @@ export default function Results() {
       <section style={{ color: 'rgba(237, 231, 219, 0.75)' }} className="pageHero gradient-bg">
         <div className="pageHeroInner">
           <span className="pageHeroEyebrow">TRANSFORMATION JOURNEYS</span>
-          <h1 className="pageHeroTitle">Real Women, Real Results</h1>
+          <h1 className="pageHeroTitle">Real Results</h1>
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
             fontSize: '15px',

@@ -283,7 +283,7 @@ export default function Home() {
       <section className="resultsSection">
         <div className="resultsHeader">
           <span className="eyebrow">TRANSFORMATIONS</span>
-          <h2 className="sectionTitle">Real Results, Real Women</h2>
+          <h2 className="sectionTitle">Real Results</h2>
         </div>
 
         <div className="reelStrip">
