@@ -32,8 +32,7 @@ export default function Footer() {
             </a>
           </div>
         </div>
-
-        {/* Links Grid */}
+        
         <div className="footer-links-grid">
           <div className="footer-col">
             <h4 className="footer-title">Practice</h4>
