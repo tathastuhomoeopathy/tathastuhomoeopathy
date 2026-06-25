@@ -21,12 +21,19 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
 }
 
 html {
   scroll-behavior: smooth;
   width: 100%;
   overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a, button, input, textarea {
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
